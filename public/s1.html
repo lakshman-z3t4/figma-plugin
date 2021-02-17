@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <button onclick="signIn()">Sign In</button>
+</head>
+<body>
+  <script>
+
+    let socket = new WebSocket("ws:/localhost:8080/");
+
+    socket.onopen = function(e) {
+      console.log("[open] Connection to server established");
+      socket.send("ref-id");
+    };
+
+    socket.onmessage = function(event) {
+        console.log(`${event.data}`);
+
+    };
+
+    socket.onerror = function (err) {
+      console.log('err: ', err);
+    }
+
+    socket.onclose = function() {
+      console.log("Connection is closed...");
+    }
+
+    function signIn () {
+      window.open('/?ref=ref-id')
+    }
+
+</script>
+
+</body>
+
+</html>
